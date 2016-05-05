@@ -1,0 +1,8 @@
+var bootstrapper = {
+    
+    initialisation: function()
+    {
+
+    }
+    
+}

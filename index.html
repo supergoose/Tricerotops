@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Triceratops - Preview
+        </title>
+        <style>
+            canvas { margin:0 auto; padding:0; display: block; background:#eee;}
+        </style>
+    </head>
+    <body>
+        <canvas id="triceratops-canvas" width=800 height=600></canvas>
+        <script>
+            
+            function include(url){
+
+                //Add a script tag to the header of the document
+                var script = document.createElement("script")
+                script.type = "text/javascript";
+            
+                //Add the tag to the header
+                script.src = url;
+                document.getElementsByTagName("head")[0].appendChild(script);
+                
+            }
+            
+            //Includes
+            include("bootstrapper.js");
+            include("utils.js");
+            include("renderer.js");
+            /*global Renderer*/
+            
+            
+            var canvas;
+            var previousTime = new Date().getTime();
+
+            var triangleList = new Array();
+            var vertices = new Array();
+            
+            var angle = 0;
+            
+            window.onload = function()
+            {
+                canvas = document.getElementById("triceratops-canvas");
+                
+                var x = 500;
+                var y = 500;
+                var z = 10;
+                var w = 300;
+                var h = 300;
+                var d = 100;
+                
+                vertices = [
+                    [x,y,z,1], [x,y+h,z,1], [x+w, y+h, z, 1], [x+w, y, z, 1],
+                    [x,y,z+d,1], [x,y+h,z+d,1], [x+w, y+h, z+d, 1], [x+w, y, z+d, 1]
+                    
+                ]
+                
+                triangleList[0] = [0, 1, 2];
+                triangleList[1] = [0, 2, 3];
+                triangleList[2] = [0, 4, 3];
+                triangleList[3] = [1, 4, 0];
+                triangleList[4] = [0, 4, 5];
+                
+                Renderer.initialisation(canvas);
+                
+                setInterval(update, 3000);
+                update();
+            }
+            
+            function update()
+            {
+                //Get delta time
+                var dt = new Date().getTime() - previousTime;
+                previousTime = new Date().getTime();
+                angle++;
+                
+                //Draw
+                for(var i = 0; i < triangleList.length; i++)
+                {
+                    for(var j = 0; j < 3; j++)
+                    {
+                     //   triangleList[i][j] = Renderer.rotate(triangleList[i][j], 0, 0, 0);
+                    }
+                }
+                Renderer.render(vertices, triangleList);
+            }
+             
+            
+        </script>
+    </body>
+</html>
